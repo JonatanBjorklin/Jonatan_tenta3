@@ -118,7 +118,6 @@ server.post('/create', async (req, res) => {
   });
   
   server.get('/logout', (req, res) => {
-    // Destroy the session
     req.session.destroy((err) => {
       if (err) {
         console.error('Error destroying session:', err);
@@ -135,7 +134,7 @@ server.post('/create', async (req, res) => {
         },
       });
   
-      if (req.session.user) { // Check if user is logged in
+      if (req.session.user) { 
         const posts = await prismaPost.post.findMany({
           orderBy: {
             posted: 'desc',
@@ -144,7 +143,7 @@ server.post('/create', async (req, res) => {
   
         res.render('admin-dashboard.ejs', { user: req.session.user, latestPost, posts });
       } else {
-        res.redirect('/'); // Redirect to the login page
+        res.redirect('/'); 
       }
     } catch (error) {
       console.error('Error fetching post:', error);
